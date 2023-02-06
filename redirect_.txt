@@ -1,0 +1,22 @@
+total 208
+-rwxr-xr-x  1 mserrouk  candidate  8956 Feb  6 02:47 a.out
+-rw-r--r--  1 mserrouk  candidate   437 Feb  2 14:09 cat.c
+-rwxr-xr-x  1 mserrouk  candidate  8732 Feb  2 14:10 catx
+-rw-r--r--  1 mserrouk  candidate    41 Feb  2 01:32 copy.txt
+-rw-r--r--  1 mserrouk  candidate   929 Feb  6 01:18 doc
+-rw-r--r--  1 mserrouk  candidate   425 Feb  5 22:39 enver.c
+-rw-r--r--  1 mserrouk  candidate   886 Feb  3 08:19 error_exec.c
+-rw-r--r--  1 mserrouk  candidate   204 Feb  2 15:17 exec.c
+-rw-r--r--  1 mserrouk  candidate     0 Feb  5 02:14 exect.c
+-rw-r--r--  1 mserrouk  candidate    80 Feb  2 01:22 foo-copy.txt
+-rw-r--r--  1 mserrouk  candidate    40 Feb  2 01:21 input.txt
+-rw-r--r--  1 mserrouk  candidate    40 Feb  2 13:47 output
+-rw-r--r--  1 mserrouk  candidate     9 Feb  6 02:00 output.txt
+-rw-r--r--  1 mserrouk  candidate     0 Feb  2 00:51 output2.txt
+-rw-r--r--  1 mserrouk  candidate   639 Feb  5 22:51 pipe.c
+-rwxr-xr-x  1 mserrouk  candidate  8612 Feb  5 22:10 pwd
+-rwxr-xr-x  1 mserrouk  candidate  8612 Feb  5 22:10 pwdm
+-rw-r--r--  1 mserrouk  candidate    41 Feb  1 22:50 rediration.c
+-rwxr-xr-x  1 mserrouk  candidate     0 Feb  6 02:47 redirect_.txt
+-rwxr-xr-x  1 mserrouk  candidate     7 Feb  3 06:16 redirect_fd.txt
+-rw-r--r--  1 mserrouk  candidate   302 Feb  5 00:38 tt.c

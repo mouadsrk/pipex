@@ -1,0 +1,25 @@
+">" redirate output 
+exemle if the standar input point to the teminale 
+for  reading it will be rediracted to read from
+file by the file entry whithout creating new 
+file descripteur 
+
+"<" redirate input same
+"2>file.txt" for standar error it write
+in the givent file 
+
+pipe can take input form process and save data in pipe itself anfd give it to aunother 
+pipe(fd);
+process fd[0] is the file descriptor used for reading from the pipe, and fd[1] is the file descriptor used for writing to the pipe.
+
+
+exec :family fuction replace  the process/programe data in favor
+ of the command in exec function in memory it remplace stack heap data segment
+  code  and everythink but it work whith the same prossece id ,same fd and it 
+  take commande as main argument 
+
+dup2 (f2,f1) f1 point to same fille that f2 point to 
+exmple fd1 stdin read frome terminal
+       fd2 read frome file
+       dup2(f2,f1) 
+       f1 will read frome file
