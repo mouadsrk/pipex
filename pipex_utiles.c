@@ -68,11 +68,12 @@ char	*ft_strjoin(char *s1, char *s2)
         return(ft_strdup(s1));
 	lens1 = ft_strlen(s1);
 	lens2 = ft_strlen(s2);
-	ptr = malloc(lens1 + lens2 + 1);
+	ptr = malloc(lens1 + lens2 + 2);
 	if (ptr == NULL)
 		return (free(s1), free(s2), NULL);
 	ft_memcpy(ptr, s1, lens1);
-	ft_memcpy(ptr + lens1, s2, lens2);
-	ptr[lens1 + lens2] = '\0';
+	ptr[lens1] = '/';
+	ft_memcpy(ptr + lens1 + 1, s2, lens2);
+	ptr[lens1 + lens2 + 1] = '\0';
 	return (ptr);
 }
