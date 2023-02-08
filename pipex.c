@@ -13,7 +13,7 @@ char **ft_all_paths(char *envp[])
 	return NULL;
 }
 
-void ft_path(t_vars *v,char *argv)
+void ft_command_path(t_vars *v,char *argv)
 {
 	int i;
 
@@ -24,14 +24,15 @@ void ft_path(t_vars *v,char *argv)
 		v->cmdpath = ft_strjoin(v->paths[i], v->cmd1[0]);
 		if(!access(v->cmdpath,R_OK))
 		{
-			break;
+			return ;
 		}
 		free(v->cmdpath);
+		v->cmdpath= NULL;
 		i++;
 	}
 }
 
-void ft_commande1(t_vars *v,char **argv)
+void ft_command1(t_vars *v,char **argv)
 {
 	int	fdinput;
 
@@ -40,15 +41,22 @@ void ft_commande1(t_vars *v,char **argv)
         perror("Error opening input file");
         exit(1);
     }
-	dup2(fdinput,STDIN_FILENO);
-	dup2(v->fd[1],STDOUT_FILENO);
+	if (dup2(fdinput,STDIN_FILENO) == -1)
+		{
+			exit(1);
+		}
+	if (dup2(v->fd[1],STDOUT_FILENO)== -1)
+	{
+			exit(1);
+	}
+	close(v->fd[0]);
 	close(v->fd[1]);
 	close(fdinput);
     execve(v->cmdpath, v->cmd1, NULL);
 }
 
 
-void ft_commande2(t_vars *v,char **argv)
+void ft_command2(t_vars *v,char **argv)
 {
 	int	fd;
 
@@ -57,23 +65,14 @@ void ft_commande2(t_vars *v,char **argv)
         perror("Error opening input file");
         exit(1);
     }
-	// int	fdinput;
-
-	// fdinput = open(argv[1],O_RDONLY ,0777);
-	// if (fdinput == -1) {
-    //     perror("Error opening input file");
-    //     exit(1);
-    // }
-	// 	char buffer[10];
-    //     int n;
-	// 	n = 1;
-	// 	int i = 0;
-    // while ((n = read(v->fd[0], buffer, 10)) > 0 && i++ <30)
-	// {
-    //     // write(1, buffer, n);
-	// }
-	dup2(v->fd[0],STDIN_FILENO);
-	dup2(fd,STDOUT_FILENO);
+	if (dup2(v->fd[0],STDIN_FILENO) == -1)
+	{
+			exit(1);
+	}
+	if (dup2(fd,STDOUT_FILENO) == -1)
+	{
+			exit(1);
+	}
 	close(v->fd[1]);
 	close(fd);
 	close(v->fd[0]);
@@ -95,15 +94,28 @@ void ft_pipex(t_vars *v, char **argv)
     }
 	if(v->p1pid == 0)
 	{
-		close(v->fd[0]);
-		ft_path(v,argv[2]);
-		ft_commande1(v,argv);
+		ft_command_path(v,argv[2]);
+		ft_command1(v,argv);
 	}
 	else
 	{
 		wait(0);
-		ft_path(v,argv[3]);
-		ft_commande2(v,argv);
+		ft_command_path(v,argv[2]);
+		if(!v->cmdpath)
+		{
+			write(2,"command not found:",20);
+			write(2,v->cmd1[0],ft_strlen(v->cmd1[0]));
+			exit(1);
+		}
+		ft_command_path(v,argv[3]);
+		if(!v->cmdpath)
+		{
+			write(2,ft_strjoin("command not found:",v->cmd1[0]),20 + ft_strlen(v->cmd1[0]));
+			// write(2,v->cmd1[0],ft_strlen(v->cmd1[0]));
+			exit(1);
+		}
+
+		ft_command2(v,argv);
 		exit(0);
 	}	
 }
