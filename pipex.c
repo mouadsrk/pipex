@@ -6,7 +6,7 @@
 /*   By: mserrouk <mserrouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:42:52 by mserrouk          #+#    #+#             */
-/*   Updated: 2023/02/10 19:27:46 by mserrouk         ###   ########.fr       */
+/*   Updated: 2023/02/10 20:04:43 by mserrouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ void	ft_command_path(t_vars *v, char *argv)
 	{
 		v->cmdpath = ft_strjoin(v->paths[i], v->cmd1[0]);
 		if (!access(v->cmdpath, R_OK))
-		{
 			return ;
-		}
 		free(v->cmdpath);
 		v->cmdpath = NULL;
 		i++;
@@ -49,7 +47,7 @@ void	ft_pipex_25line(t_vars *v, char **argv)
 	wait(0);
 	ft_command_path(v, argv[2]);
 	if (!v->cmdpath)
-		error_message("error");
+		exit(1);
 	free(v->cmdpath);
 	free(v->cmd1[0]);
 	free(v->cmd1);
@@ -61,8 +59,6 @@ void	ft_pipex_25line(t_vars *v, char **argv)
 
 void	ft_pipex(t_vars *v, char **argv)
 {
-	int	status;
-
 	if (pipe(v->fd) == -1)
 		error_message("Error creating pipe");
 	v->p1pid = fork();
