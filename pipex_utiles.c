@@ -1,5 +1,16 @@
-#include "pipex.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex_utiles.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mserrouk <mserrouk@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/10 17:43:12 by mserrouk          #+#    #+#             */
+/*   Updated: 2023/02/10 17:46:18 by mserrouk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "pipex.h"
 
 size_t	ft_strlen(char *s)
 {
@@ -64,8 +75,8 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	if (!s1)
 		return (ft_strdup(s2));
-    if(!s2)
-        return(ft_strdup(s1));
+	if (!s2)
+		return (ft_strdup(s1));
 	lens1 = ft_strlen(s1);
 	lens2 = ft_strlen(s2);
 	ptr = malloc(lens1 + lens2 + 2);

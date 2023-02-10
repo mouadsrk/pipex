@@ -1,4 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex_utiles2.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mserrouk <mserrouk@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/10 17:43:17 by mserrouk          #+#    #+#             */
+/*   Updated: 2023/02/10 19:27:58 by mserrouk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
+
+void	error_message(char *str)
+{
+	write(2, str, ft_strlen(str));
+	exit(1);
+}
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
