@@ -6,7 +6,7 @@
 /*   By: mserrouk <mserrouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:43:07 by mserrouk          #+#    #+#             */
-/*   Updated: 2023/02/10 20:12:17 by mserrouk         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:50:07 by mserrouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@ void	ft_command1(t_vars *v,	char **argv)
 		error_message("Error dup2");
 	if (dup2(v->fd[1], STDOUT_FILENO) == -1)
 		error_message("Error dup2");
+	execve(v->cmdpath, v->cmd1, NULL);
 	close(v->fd[0]);
 	close(v->fd[1]);
-	close(fdinput);
-	execve(v->cmdpath, v->cmd1, NULL);
 	error_message("Error execve");
 }
 
@@ -36,14 +35,11 @@ void	ft_command2(t_vars *v, char **argv)
 
 	fd = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (fd == -1)
-		error_message("Error input file");
+		error_message("Error output file");
 	if (dup2(v->fd[0], STDIN_FILENO) == -1)
 		error_message("Error dup2");
 	if (dup2(fd, STDOUT_FILENO) == -1)
 		error_message("Error dup2");
-	close(v->fd[1]);
-	close(fd);
-	close(v->fd[0]);
 	execve(v->cmdpath, v->cmd1, NULL);
 	error_message("Error execve");
 }

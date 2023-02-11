@@ -1,3 +1,4 @@
 pipe can take input form process and save data in pipe itself anfd give it to aunother 
 pipe(fd);
-
+ertyu
+erty

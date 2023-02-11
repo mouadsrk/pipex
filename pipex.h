@@ -6,7 +6,7 @@
 /*   By: mserrouk <mserrouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:43:27 by mserrouk          #+#    #+#             */
-/*   Updated: 2023/02/10 20:12:32 by mserrouk         ###   ########.fr       */
+/*   Updated: 2023/02/11 16:23:43 by mserrouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,8 @@ typedef struct var_s
 	char	*cmdpath;
 	char	**cmd1;
 	int		fd[2];
-	int		p1fd;
-	int		p1pid;
-	int		p2pi;
-	int		p2fd;
-
+	pid_t	p1pid;
+	pid_t	p2pid;
 }t_vars;
 
 void	error_message(char *str);
@@ -41,4 +38,7 @@ char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 void	ft_command1(t_vars *v, char **argv);
 void	ft_command2(t_vars *v, char **argv);
+void	ft_free(char **arr, int r);
+int		ft_word(char const	*s, char c);
+
 #endif

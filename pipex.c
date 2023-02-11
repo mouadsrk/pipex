@@ -6,7 +6,7 @@
 /*   By: mserrouk <mserrouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:42:52 by mserrouk          #+#    #+#             */
-/*   Updated: 2023/02/10 20:04:43 by mserrouk         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:53:28 by mserrouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,46 +40,59 @@ void	ft_command_path(t_vars *v, char *argv)
 		v->cmdpath = NULL;
 		i++;
 	}
+	error_message("command no fond");
 }
 
 void	ft_pipex_25line(t_vars *v, char **argv)
 {
-	wait(0);
-	ft_command_path(v, argv[2]);
-	if (!v->cmdpath)
-		exit(1);
-	free(v->cmdpath);
-	free(v->cmd1[0]);
-	free(v->cmd1);
-	ft_command_path(v, argv[3]);
-	if (!v->cmdpath)
-		error_message("Error creating pipe");
-	ft_command2(v, argv);
+	if (v->p2pid == 0)
+	{
+		ft_command_path(v, argv[3]);
+		ft_command2(v, argv);
+	}
+	close(v->fd[0]);
 }
 
 void	ft_pipex(t_vars *v, char **argv)
 {
 	if (pipe(v->fd) == -1)
 		error_message("Error creating pipe");
+	ft_command_path(v, argv[2]);
+	if (!v->cmdpath)
+		error_message("Error command not found");
+	ft_free(v->cmd1, ft_word(argv[2], ' '));
+	free(v->cmdpath);
+	ft_command_path(v, argv[3]);
+	if (!v->cmdpath)
+		error_message("Error command not found");
+	free(v->cmdpath);
+	ft_free(v->cmd1, ft_word(argv[3], ' '));
 	v->p1pid = fork();
 	if (v->p1pid == -1)
 		error_message("Error creating child process");
-	if (v->p1pid != 0)
+	if (v->p1pid == 0)
 	{
 		ft_command_path(v, argv[2]);
 		ft_command1(v, argv);
 	}
+	close(v->fd[1]);
+	v->p2pid = fork();
+	if (v->p2pid == -1)
+		error_message("Error creating child process");
 	else
 		ft_pipex_25line(v, argv);
 }
+
 
 int	main(int argc, char **argv, char *envp[])
 {
 	t_vars	v;
 
-	if (argc < 5)
-		error_message("error in argument");
+	if (argc != 5)
+		error_message("error in argument");	
 	v.paths = ft_all_paths(envp);
 	ft_pipex(&v, argv);
+	wait(NULL);
+		wait(NULL);
 	return (0);
 }
