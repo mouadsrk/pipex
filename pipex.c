@@ -6,7 +6,7 @@
 /*   By: mserrouk <mserrouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:42:52 by mserrouk          #+#    #+#             */
-/*   Updated: 2023/02/11 17:53:28 by mserrouk         ###   ########.fr       */
+/*   Updated: 2023/02/11 18:39:58 by mserrouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	ft_pipex_25line(t_vars *v, char **argv)
 		ft_command2(v, argv);
 	}
 	close(v->fd[0]);
+	close(v->fd[1]);
 }
 
 void	ft_pipex(t_vars *v, char **argv)
@@ -75,7 +76,6 @@ void	ft_pipex(t_vars *v, char **argv)
 		ft_command_path(v, argv[2]);
 		ft_command1(v, argv);
 	}
-	close(v->fd[1]);
 	v->p2pid = fork();
 	if (v->p2pid == -1)
 		error_message("Error creating child process");
@@ -83,16 +83,15 @@ void	ft_pipex(t_vars *v, char **argv)
 		ft_pipex_25line(v, argv);
 }
 
-
 int	main(int argc, char **argv, char *envp[])
 {
 	t_vars	v;
 
 	if (argc != 5)
-		error_message("error in argument");	
+		error_message("error in argument");
 	v.paths = ft_all_paths(envp);
 	ft_pipex(&v, argv);
 	wait(NULL);
-		wait(NULL);
+	wait(NULL);
 	return (0);
 }
