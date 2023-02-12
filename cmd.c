@@ -6,7 +6,7 @@
 /*   By: mserrouk <mserrouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:43:07 by mserrouk          #+#    #+#             */
-/*   Updated: 2023/02/11 18:39:25 by mserrouk         ###   ########.fr       */
+/*   Updated: 2023/02/12 20:29:24 by mserrouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_command1(t_vars *v,	char **argv)
 {
 	int	fdinput;
 
-	fdinput = open(argv[1], O_RDONLY, 0777);
+	fdinput = open(argv[1], O_RDONLY);
 	if (fdinput == -1)
 		error_message("Error input file");
 	if (dup2(fdinput, STDIN_FILENO) == -1)

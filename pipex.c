@@ -6,7 +6,7 @@
 /*   By: mserrouk <mserrouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:42:52 by mserrouk          #+#    #+#             */
-/*   Updated: 2023/02/11 18:39:58 by mserrouk         ###   ########.fr       */
+/*   Updated: 2023/02/12 20:30:43 by mserrouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_command_path(t_vars *v, char *argv)
 		v->cmdpath = NULL;
 		i++;
 	}
-	error_message("command no fond");
+	error_message("Error command not found");
 }
 
 void	ft_pipex_25line(t_vars *v, char **argv)
@@ -59,13 +59,9 @@ void	ft_pipex(t_vars *v, char **argv)
 	if (pipe(v->fd) == -1)
 		error_message("Error creating pipe");
 	ft_command_path(v, argv[2]);
-	if (!v->cmdpath)
-		error_message("Error command not found");
 	ft_free(v->cmd1, ft_word(argv[2], ' '));
 	free(v->cmdpath);
 	ft_command_path(v, argv[3]);
-	if (!v->cmdpath)
-		error_message("Error command not found");
 	free(v->cmdpath);
 	ft_free(v->cmd1, ft_word(argv[3], ' '));
 	v->p1pid = fork();
